@@ -18,33 +18,39 @@ const navLinks = document.querySelector(".nav-links");
 
 if (menuToggle && navLinks) {
 
-  menuToggle.addEventListener("click", () => {
-
+  menuToggle.addEventListener("click", (e) => {
+    e.stopPropagation();
     const isOpen = navLinks.classList.toggle("open");
-
+    menuToggle.classList.toggle("active", isOpen);
     menuToggle.setAttribute(
       "aria-expanded",
       isOpen ? "true" : "false"
     );
-
   });
 
-
   // Close menu after clicking a navigation link
-
   document.querySelectorAll(".nav-links a").forEach((link) => {
-
     link.addEventListener("click", () => {
-
       navLinks.classList.remove("open");
-
+      menuToggle.classList.remove("active");
       menuToggle.setAttribute(
         "aria-expanded",
         "false"
       );
-
     });
+  });
 
+  // Close menu when clicking outside
+  document.addEventListener("click", (event) => {
+    if (
+      navLinks.classList.contains("open") &&
+      !navLinks.contains(event.target) &&
+      !menuToggle.contains(event.target)
+    ) {
+      navLinks.classList.remove("open");
+      menuToggle.classList.remove("active");
+      menuToggle.setAttribute("aria-expanded", "false");
+    }
   });
 
 }
@@ -69,50 +75,76 @@ if (cursorGlow) {
 
 
 // ===============================
-// ACTIVE NAVIGATION
+// ACTIVE NAVIGATION & SMOOTH SCROLL
 // ===============================
 
-const sections = document.querySelectorAll("section[id]");
-const navItems = document.querySelectorAll(".nav-links a");
+const navItems = document.querySelectorAll(".nav-links a[href^='#']");
+const navTargets = Array.from(navItems)
+  .map((link) => {
+    const href = link.getAttribute("href");
+    return href && href !== "#" ? document.querySelector(href) : null;
+  })
+  .filter(Boolean);
 
-if (sections.length && navItems.length) {
+let isManualScrolling = false;
+let scrollTimeout = null;
+
+function setActiveLink(targetId) {
+  navItems.forEach((link) => {
+    const href = link.getAttribute("href");
+    if (href === `#${targetId}`) {
+      link.classList.add("active");
+    } else {
+      link.classList.remove("active");
+    }
+  });
+}
+
+if (navTargets.length && navItems.length) {
 
   const observer = new IntersectionObserver(
     (entries) => {
+      if (isManualScrolling) return;
 
       entries.forEach((entry) => {
-
-        if (!entry.isIntersecting) return;
-
-        navItems.forEach((link) => {
-          link.classList.remove("active");
-        });
-
-        const activeLink = document.querySelector(
-          `.nav-links a[href="#${entry.target.id}"]`
-        );
-
-        if (activeLink) {
-          activeLink.classList.add("active");
+        if (entry.isIntersecting) {
+          setActiveLink(entry.target.id);
         }
-
       });
-
     },
     {
-      rootMargin: "-35% 0px -55% 0px"
+      rootMargin: "-25% 0px -50% 0px",
+      threshold: 0.1
     }
   );
 
-  sections.forEach((section) => {
-    observer.observe(section);
+  navTargets.forEach((target) => {
+    observer.observe(target);
   });
+
+  // Top and bottom scroll fallbacks
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (isManualScrolling) return;
+
+      if (window.scrollY < 80) {
+        setActiveLink("home");
+      } else if (
+        window.innerHeight + window.scrollY >=
+        document.documentElement.scrollHeight - 50
+      ) {
+        setActiveLink("contact");
+      }
+    },
+    { passive: true }
+  );
 
 }
 
 
 // ===============================
-// SMOOTH ANCHOR OFFSET
+// SMOOTH ANCHOR OFFSET & INSTANT ACTIVE LINK TRIGGER
 // ===============================
 
 document.querySelectorAll('a[href^="#"]').forEach((link) => {
@@ -129,19 +161,58 @@ document.querySelectorAll('a[href^="#"]').forEach((link) => {
 
     event.preventDefault();
 
+    // Set active link immediately on click for instant user feedback
+    setActiveLink(target.id);
+
+    isManualScrolling = true;
+    clearTimeout(scrollTimeout);
+
     const navHeight = 78;
 
     const targetPosition =
-      target.getBoundingClientRect().top +
-      window.scrollY -
-      navHeight -
-      15;
+      targetId === "#home"
+        ? 0
+        : target.getBoundingClientRect().top +
+          window.scrollY -
+          navHeight -
+          15;
 
     window.scrollTo({
-      top: targetPosition,
+      top: Math.max(0, targetPosition),
       behavior: "smooth"
     });
+
+    scrollTimeout = setTimeout(() => {
+      isManualScrolling = false;
+    }, 800);
 
   });
 
 });
+
+// Handle initial scroll positioning if URL has a hash on load
+window.addEventListener("DOMContentLoaded", () => {
+  if (window.location.hash) {
+    const target = document.querySelector(window.location.hash);
+    if (target) {
+      setTimeout(() => {
+        const navHeight = 78;
+        const targetPosition =
+          window.location.hash === "#home"
+            ? 0
+            : target.getBoundingClientRect().top +
+              window.scrollY -
+              navHeight -
+              15;
+
+        window.scrollTo({
+          top: Math.max(0, targetPosition),
+          behavior: "smooth"
+        });
+
+        setActiveLink(target.id);
+      }, 100);
+    }
+  }
+});
+

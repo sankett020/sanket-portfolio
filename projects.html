@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Sanket Kushwaha — Projects and selected work.">
+  <title>Projects — Sanket Kushwaha</title>
+
+  <!-- Spider-Man Favicon -->
+  <link rel="icon" type="image/png" href="images/spiderman-favicon.png">
+  <link rel="shortcut icon" href="favicon.ico">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="projects.css">
+</head>
+
+<body>
+  <div class="cursor-glow"></div>
+
+  <header class="nav">
+    <div class="nav-container">
+      <a class="logo" href="index.html">SANKE<span>T.</span></a>
+
+      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span>
+      </button>
+
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a class="active" href="projects.html">Work</a>
+        <a href="index.html#services">Services</a>
+        <a href="index.html#about">About</a>
+        <a href="index.html#contact">Contact</a>
+        <a class="mobile-resume-link" href="Sanket_Kushwaha_Resume.pdf" download="Sanket_Kushwaha_Resume.pdf">
+          <svg class="download-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          Download Resume
+        </a>
+      </nav>
+
+      <div class="nav-cta-group">
+        <a class="nav-resume-btn" href="Sanket_KushwahaCV.pdf" download="Sanket_KushwahaCV.pdf" aria-label="Download Resume" title="Download Resume PDF">
+          <svg class="download-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          Resume
+        </a>
+
+        <a class="nav-cta"
+           href="https://wa.me/918929559347?text=Hi%20Sanket%2C%20I%20found%20your%20portfolio%20and%20would%20like%20to%20discuss%20a%20project."
+           target="_blank" rel="noopener noreferrer">
+          Let's Talk <span>↗</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="projects-hero section">
+      <div class="projects-hero-copy">
+        <p class="eyebrow">MY PORTFOLIO</p>
+        <h1>Selected <span>Projects</span></h1>
+        <p>A collection of websites, AI solutions and creative digital work I've built.</p>
+      </div>
+
+      <div class="project-count">
+        <strong id="project-count">0</strong>
+        <span>Projects</span>
+      </div>
+    </section>
+
+    <section class="section all-projects-section">
+      <div class="project-filters" aria-label="Project filters">
+        <button class="project-filter active" data-filter="All">All</button>
+        <button class="project-filter" data-filter="Web Development">Web</button>
+        <button class="project-filter" data-filter="AI">AI</button>
+        <button class="project-filter" data-filter="Design">Design</button>
+        <button class="project-filter" data-filter="Content">Content</button>
+      </div>
+
+      <div id="all-projects" class="projects projects-all"></div>
+    </section>
+
+    <section class="contact section projects-contact">
+      <div class="contact-copy">
+        <p class="eyebrow">HAVE A PROJECT?</p>
+        <h2>Let's build something<br><span>great together.</span></h2>
+      </div>
+
+      <a class="btn light"
+         href="https://wa.me/918929559347?text=Hi%20Sanket%2C%20I%20found%20your%20portfolio%20and%20would%20like%20to%20discuss%20a%20project."
+         target="_blank" rel="noopener noreferrer">
+        Let's Talk <b>↗</b>
+      </a>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-container">
+      <p>© <span id="year"></span> Sanket Kushwaha. All rights reserved.</p>
+
+      <div>
+        <a href="https://www.linkedin.com/in/sanket-kushwaha-317aab391/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://github.com/sankett020" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=sanketkushwaha032@gmail.com" target="_blank" rel="noopener noreferrer">Email</a>
+        <a href="https://wa.me/918929559347" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+      </div>
+
+      <p>Designed & Built with ♥</p>
+    </div>
+  </footer>
+
+  <script src="projects.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

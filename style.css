@@ -121,13 +121,19 @@ button{
   transition:.25s ease;
 }
 
-.nav-cta{
+.nav-cta,
+.btn.secondary{
   background:var(--gradient);
   border:0;
   color:white;
 }
 
-/* ================= RESUME BUTTON (CYBER FROSTED THEME) ================= */
+.btn.secondary:hover{
+  opacity:0.92;
+  transform:translateY(-2px);
+}
+
+/* ================= RESUME & HIRE BUTTONS ================= */
 
 .nav-resume-btn{
   display:inline-flex;
@@ -146,6 +152,7 @@ button{
   transition:all 0.25s ease;
   text-decoration:none;
   cursor:pointer;
+  white-space:nowrap;
 }
 
 .nav-resume-btn .download-icon{
@@ -169,7 +176,36 @@ button{
   box-shadow:0 0 10px rgba(0, 240, 255, 0.2);
 }
 
-.mobile-resume-link{
+.nav-hire-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  border:0;
+  border-radius:10px;
+  padding:10px 18px;
+  font-size:13px;
+  font-weight:600;
+  color:white;
+  background:var(--gradient);
+  box-shadow:0 4px 15px rgba(240,75,154,0.25);
+  transition:all 0.25s ease;
+  text-decoration:none;
+  cursor:pointer;
+  white-space:nowrap;
+}
+
+.nav-hire-btn:hover{
+  opacity:0.92;
+  transform:translateY(-2px);
+  box-shadow:0 6px 20px rgba(240,75,154,0.4);
+}
+
+.nav-hire-btn:active{
+  transform:translateY(0);
+}
+
+.mobile-resume-link,
+.mobile-menu-actions{
   display:none;
 }
 
@@ -820,15 +856,36 @@ footer{
     bottom:auto;
   }
 
-  .mobile-resume-link{
+  .mobile-menu-actions{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    margin-top:12px;
+    padding-top:16px;
+    border-top:1px solid var(--line);
+  }
+
+  .mobile-action-btn{
     display:flex;
     align-items:center;
+    justify-content:center;
     gap:8px;
-    color:#00f0ff !important;
-    font-weight:600;
-    margin-top:8px;
     padding:12px 18px;
-    border-top:1px solid var(--line);
+    border-radius:10px;
+    font-size:13px;
+    font-weight:600;
+    text-decoration:none;
+  }
+
+  .mobile-action-btn.mobile-resume-btn{
+    color:#00f0ff;
+    background:rgba(0, 240, 255, 0.08);
+    border:1px solid rgba(0, 240, 255, 0.35);
+  }
+
+  .mobile-action-btn.mobile-hire-btn{
+    color:white;
+    background:var(--gradient);
   }
 
   .nav-cta-group{
@@ -840,8 +897,9 @@ footer{
     font-size:12px;
   }
 
-  .nav-cta{
-    display:none;
+  .nav-hire-btn{
+    padding:8px 14px;
+    font-size:12px;
   }
 
   .section{
@@ -901,9 +959,28 @@ footer{
 
 @media(max-width:560px){
 
+  .nav-cta-group{
+    gap:6px;
+  }
+
+  .nav-resume-btn{
+    padding:7px 10px;
+    font-size:11px;
+  }
+
+  .nav-resume-btn .download-icon{
+    width:13px;
+    height:13px;
+  }
+
+  .nav-hire-btn{
+    padding:7px 11px;
+    font-size:11px;
+  }
+
   h1{
-    font-size:47px;
-    letter-spacing:-2px;
+    font-size:43px;
+    letter-spacing:-1.5px;
   }
 
   .hero-text{
